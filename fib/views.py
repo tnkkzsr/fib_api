@@ -16,11 +16,9 @@ class TestView(APIView):
 def fib(n):
     if n <= 1:
             return n
-
     a, b = 0, 1
     for _ in range(2, n + 1):
         a, b = b, a + b
-
     return b
 
 class FibView(APIView):
@@ -30,12 +28,15 @@ class FibView(APIView):
 
         #クエリパラメータに何もない時
         if n is None:
-            return Response({"error":"クエリパラメータが空です。数字を入力してください"},status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                "status":400,
+                "error":"クエリパラメータが空です。数字を入力してください",
+                },status=status.HTTP_400_BAD_REQUEST)
         #クエリパラメータが数字(10進数)でない時
         if not n.isdecimal():
             return Response({
-                "status":"400",
-                "error":"クエリパラメータには数字を入力してください"
+                "status":400,
+                "error":"クエリパラメータには正の整数を入力してください"
                 },
                 status=status.HTTP_400_BAD_REQUEST)
         
