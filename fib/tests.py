@@ -9,19 +9,19 @@ class TestFibView(APITestCase):
         url = reverse("fib")
         response = self.client.get(url)
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data["error"],"Please provide a number")
+        self.assertEqual(response.data["error"],"クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib/?n=⚪︎に正の整数を入力してください")
 
     def test_not_number_request(self):
         url = reverse("fib") + "?n=abc"
         response = self.client.get(url)
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data["error"],"Please provide a number")
+        self.assertEqual(response.data["error"],"クエリパラメータnが整数ではありません。クエリパラメータには正の整数を入力してください")
 
     def test_negative_number_request(self):
-        url = reverse("fib") + "?n=-1"
+        url = reverse("fib") + "?n="+str(-1)
         response = self.client.get(url)
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data["error"],"Please provide a positive number")
+        self.assertEqual(response.data["error"],"クエリパラメータnが正の数ではありません。クエリパラメータには正の整数を入力してください。")
 
     def test_valied_get_request(self):
         url = reverse("fib") + "?n=10"

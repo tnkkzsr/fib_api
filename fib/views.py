@@ -30,22 +30,28 @@ class FibView(APIView):
         if n is None:
             return Response({
                 "status":400,
-                "error":"クエリパラメータが空です。数字を入力してください",
+                "error":"クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib/?n=⚪︎に正の整数を入力してください",
                 },status=status.HTTP_400_BAD_REQUEST)
-        #クエリパラメータが数字(10進数)でない時
-        if not n.isdecimal():
+                
+        try:
+            n = int(n)
+        except ValueError: #クエリパラメータが整数ではない時
+            if n == "":
+                return Response({
+                    "status": 400,
+                    "error": "クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib/?n=⚪︎に正の整数を入力してください",
+                }, status=status.HTTP_400_BAD_REQUEST)
             return Response({
-                "status":400,
-                "error":"クエリパラメータには正の整数を入力してください"
-                },
-                status=status.HTTP_400_BAD_REQUEST)
-        
-        n = int(n)
+                "status": 400,
+                "error": "クエリパラメータnが整数ではありません。クエリパラメータには正の整数を入力してください"
+            }, status=status.HTTP_400_BAD_REQUEST)
 
-        #クエリパラメータが0以下の数字の時
+        # クエリパラメータが0以下の数字の時
         if n <= 0:
-            return Response({"error":"Please provide a positive number"},status=status.HTTP_400_BAD_REQUEST)
-        
+            return Response({
+                "status": 400,
+                "error": "クエリパラメータnが正の数ではありません。クエリパラメータには正の整数を入力してください。"
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({"result":fib(n)})
 
