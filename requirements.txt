@@ -25,3 +25,4 @@ sqlparse==0.4.4
 typing_extensions==4.8.0
 urllib3==2.0.6
 python-decouple
+gunicorn==20.1.0
