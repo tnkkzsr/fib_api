@@ -49,6 +49,7 @@ class FibView(APIView):
 
         return Response({"result":fib(n)})
 
+#404エラーを返すビュー
 def custom_404(request, exception):
     data = {
         'status': 404,

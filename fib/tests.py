@@ -39,6 +39,7 @@ class TestFibView(APITestCase):
 class Custom404TestCase(TestCase):
     
     def test_custom_404_response(self):
+    
         response = self.client.get(reverse('fib') + 'nonexistent/')
         self.assertEqual(response.status_code, 404)
         expected_data = {
