@@ -1,14 +1,12 @@
-from django.shortcuts import render
-
-# Create your views here.
-
-
+# フィボナッチ数列を返すAPIビューを定義するファイル
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .fib_calucurate import fib
+from django.http import JsonResponse
 
-MAX_N = 20577 #クエリパラメータの最大値
+#クエリパラメータの最大値。これを超えるとエラーを返す
+MAX_N = 20577 
 
 error_messages = {
     "none_request":"クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib/?n=⚪︎に正の整数を入力してください",
@@ -17,12 +15,14 @@ error_messages = {
     "over_max_n_request":"クエリパラメータnが大きすぎます。クエリパラメータには20577以下の正の整数を入力してください",
 }
 
+#エラーメッセージを返す関数
 def error_response(error_message):
     return Response({
-        "status": 400,
+        "status": status.HTTP_400_BAD_REQUEST,
         "error": error_message
     }, status=status.HTTP_400_BAD_REQUEST)
 
+#フィボナッチ数列を返すAPIビュー
 class FibView(APIView):
 
     def get(self,request):
@@ -49,3 +49,9 @@ class FibView(APIView):
 
         return Response({"result":fib(n)})
 
+def custom_404(request, exception):
+    data = {
+        'status': 404,
+        'error':"Not Found"
+    }
+    return JsonResponse(data, status=404)
