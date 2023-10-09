@@ -28,3 +28,9 @@ class TestFibView(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         self.assertEqual(response.data["result"],55)
+
+    def test_over_max_n_request(self):
+        url = reverse("fib") + "?n=20578"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data["error"],"クエリパラメータnが大きすぎます。クエリパラメータには20577以下の正の整数を入力してください")
