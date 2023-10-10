@@ -10,6 +10,7 @@ def fib(n):
 
 # エラーが出てくるnの上限値を調べる関数
 # 結果20578でエラーが出ることがわかった
+
 def limit_test_fib():
     for i in range(1, 100000): 
             try:
