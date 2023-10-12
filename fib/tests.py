@@ -10,7 +10,7 @@ class TestFibView(APITestCase):
         url = reverse("fib")
         response = self.client.get(url)
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data["error"],"クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib/?n=⚪︎に正の整数を入力してください")
+        self.assertEqual(response.data["error"],"クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib?n=⚪︎に正の整数を入力してください")
 
     def test_not_number_request(self):
         url = reverse("fib") + "?n=abc"

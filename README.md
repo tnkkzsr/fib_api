@@ -31,3 +31,17 @@ https://github.com/tnkkzsr/fib_api
 エラー処理を書く際、エラーメッセージ以外は同じようなコードになるので、エラーメッセージを返す部分を関数化してコードを整理した。
 
 
+## テストの実行結果
+
+
+```bash
+python manage.py test
+
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.013s
+
+OK
+Destroying test database for alias 'default'...

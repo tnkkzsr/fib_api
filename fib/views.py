@@ -9,7 +9,7 @@ from django.http import JsonResponse
 MAX_N = 20577 
 
 error_messages = {
-    "none_request":"クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib/?n=⚪︎に正の整数を入力してください",
+    "none_request":"クエリパラメータnが空です。https://kazufib-fef02dd1ab53.herokuapp.com/fib?n=⚪︎に正の整数を入力してください",
     "not_number_request":"クエリパラメータnが整数ではありません。クエリパラメータには正の整数を入力してください",
     "negative_number_request":"クエリパラメータnが正の数ではありません。クエリパラメータには正の整数を入力してください。",
     "over_max_n_request":"クエリパラメータnが大きすぎます。クエリパラメータには20577以下の正の整数を入力してください",
